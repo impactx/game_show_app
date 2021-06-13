@@ -5,7 +5,6 @@ let missed = 0;
 
 const startButton = document.getElementById('start_btn');
 const btn = document.getElementsByTagName('button');
-let gameOver = false;
 const phrasesArray = [
     'A Cold Day in July',
     'Cry Wolf',
@@ -65,6 +64,8 @@ function checkletter(target) {
 
         if (buttonLetter === letter) {
             target.className = "chosen";
+            target.disabled = true;
+
             li[i].classList.add('show');
             found = true;
 
@@ -83,17 +84,17 @@ function checkWin() {
     const show = document.getElementsByClassName('show');
     const letters = document.getElementsByClassName('letter');
     // check if game has won or lost
-    console.log(`${missed}`);
+    
     if (letters.length === show.length) {
         overlay.className = "win";
         overlay.style.display = "flex"
         startButton.textContent = "Restart Game";
-        
+
     } else if (missed >= 5) {
         overlay.style.display = "flex";
         overlay.className = "lose";
         startButton.textContent = "Restart Game";
-        
+
     }
     // if show class === letters class mean a win
     // If misses is greater than 5, show overlay with class lose.
@@ -119,12 +120,10 @@ qwerty.addEventListener('click', (e) => {
         if (letterFound === null && liList.length > 0) {
             liList[0].remove();
             missed += 1;
+
+            
         }
         checkWin();
-        if (gameOver) {
-            reset();
-            gameOver = false;
-        }
     }
 
 
