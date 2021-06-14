@@ -64,8 +64,6 @@ function checkletter(target) {
 
         if (buttonLetter === letter) {
             target.className = "chosen";
-            target.disabled = true;
-
             li[i].classList.add('show');
             found = true;
 
@@ -84,7 +82,7 @@ function checkWin() {
     const show = document.getElementsByClassName('show');
     const letters = document.getElementsByClassName('letter');
     // check if game has won or lost
-    
+
     if (letters.length === show.length) {
         overlay.className = "win";
         overlay.style.display = "flex"
@@ -111,17 +109,18 @@ qwerty.addEventListener('click', (e) => {
     const button = e.target;
     const ol = scoreboard.children[0];
     const liList = ol.children;
+    const tries = document.querySelectorAll('.tries img');
     // Check to see if the target is a button
     // The function should loop over the letters and check if they match
     let letterFound = checkletter(button);
     if (button.tagName === 'BUTTON') {
         // check to see if letterFound is false
-
+        button.disabled = true;
         if (letterFound === null && liList.length > 0) {
-            liList[0].remove();
+            tries[missed].src = "images/lostHeart.png";
             missed += 1;
 
-            
+
         }
         checkWin();
     }
